@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Main container for the event details */
+    .event-container {
+        display: flex;
+        max-width: 1200px;  /* Increased max-width for a wider layout */
+        margin: 3rem auto;
+        padding: 2rem;
+        background-color: #f1f1f1; /* Light pale background color */
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        font-family: 'Arial', sans-serif;
+        overflow: hidden;
+    }
+
+    /* Event Image */
+    .event-image-container {
+        flex: 1.5; /* Increased flex value to make image area larger */
+        height: 400px; /* Ensure enough height for image */
+        margin-right: 2rem;
+        background-color: #f0f0f0;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .event-image-container img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;  /* Prevents image cropping */
+    }
+
+    /* Event Details Section */
+    .event-details {
+        flex: 2.5; /* Adjusted to make content area larger */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* Event Title */
+    .event-title {
+        font-size: 3rem;
+        font-weight: 600;
+        text-align: left;
+        color: #333;
+        margin-bottom: 1rem;
+    }
+
+    /* Event Description */
+    .event-description {
+        font-size: 1.2rem;
+        color: #666;
+        line-height: 1.6;
+        text-align: justify;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Event Meta Information */
+    .event-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .event-meta-item {
+        text-align: center;
+        color: #2980b9;
+    }
+
+    .event-meta-item span {
+        display: block;
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    /* Buttons Container */
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    /* Back to Events Button */
+    .btn-primary {
+        padding: 14px 28px;
+        font-size: 1.1rem;
+        color: #fff;
+        background-color: #3498db;
+        border-radius: 50px;
+        text-align: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-primary:hover {
+        background-color: #2980b9;
+        transform: translateY(-4px);
+    }
+
+    /* Register Button */
+    .btn-success {
+        padding: 14px 28px;
+        font-size: 1.1rem;
+        color: white;
+        background-color: #27ae60;
+        border-radius: 50px;
+        text-align: center;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .btn-success:hover {
+        background-color: #2ecc71;
+        transform: translateY(-4px);
+    }
+
+</style>
+
+<div class="event-container">
+    <!-- Event Image -->
+    <div class="event-image-container">
+        <img src="{{ event.image.url }}" alt="{{ event.title }}">
+    </div>
+
+    <!-- Event Details Section -->
+    <div class="event-details">
+        <!-- Event Title -->
+        <h1 class="event-title">{{ event.title }}</h1>
+
+        <!-- Event Description -->
+        <p class="event-description">{{ event.description }}</p>
+
+        <!-- Event Meta Information -->
+        <div class="event-meta">
+            <div class="event-meta-item">
+                <span>{{ event.date }}</span>
+                Date
+            </div>
+            <div class="event-meta-item">
+                <span>{{ event.location }}</span>
+                Location
+            </div>
+        </div>
+
+        <!-- Buttons Container -->
+        <div class="button-container">
+            <a href="{% url 'home' %}" class="btn-primary">Back to Events</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'register_event' event.id %}" class="btn-success">Register</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn-success">Login to Register</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

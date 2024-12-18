@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: linear-gradient(to right, #8ad5e6, #59abbe, #0a3f4b);
+            background-size: cover;
+            background-position: center;
+
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            width: 380px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"], input[type="password"], input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            margin: 12px 0;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #f8f8f8;
+            color: #333;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Hover effect for input fields */
+        input[type="text"]:hover,
+        input[type="password"]:hover {
+            background-color: #eaf4ff; /* Light blue background */
+            border-color: #0056b3; /* Dark blue border */
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .footer a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                width: 90%;
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" required><br>
+            <input type="password" name="password" placeholder="Password" required><br>
+            <input type="submit" value="Login">
+        </form>
+        <div class="footer">
+            Don't have an account? <a href="{% url 'user_registration' %}">Register here</a>
+        </div>
+        {% if messages %}
+    <ul>
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+    </div>
+
+</body>
+</html>

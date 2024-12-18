@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Choose Category</h1>
+
+<!-- Dropdown for categories -->
+<form method="GET" action="{% url 'event_by_category' category.id %}">
+    <select name="category" onchange="this.form.submit()">
+        <option value="">Select Category</option>
+        {% for category in categories %}
+            <option value="{{ category.id }}">{{ category.name }}</option>
+        {% endfor %}
+    </select>
+</form>
+
+{% endblock %}

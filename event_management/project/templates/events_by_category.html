@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Events in "{{ category.name }}"</h1>
+
+<!-- Display events in the selected category -->
+{% if events %}
+    <div class="event-list">
+        {% for event in events %}
+            <div class="event-card">
+                <img src="{{ event.image.url }}" alt="{{ event.title }}">
+                <h5>{{ event.title }}</h5>
+                <p>{{ event.description }}</p>
+                <a href="{% url 'event_detail' event.id %}" class="btn">View Details</a>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No events found in this category.</p>
+{% endif %}
+
+{% endblock %}
